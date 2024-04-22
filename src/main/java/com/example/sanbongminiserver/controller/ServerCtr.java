@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,7 @@ public class ServerCtr {
     private final SupplierDAO supplierDAO;
     private final StatusDAO statusDAO;
     private final ImportOrderDAO importOrderDAO;
+    private final ImportOrderProductDAO importOrderProductDAO;
 
     @GetMapping("/category")
     public List<Category> getAllCategories() {
@@ -100,16 +102,21 @@ public class ServerCtr {
 
     @PostMapping("/order")
     public ImportOrder saveImportOrder(@RequestBody ImportOrder importOrder) {
-        System.out.println(importOrder);
-//        if (importOrder.getId() != null) {
-//            ImportOrder oImportOrder = importOrderDAO.getById(importOrder.getId());
-//            ImportOrder nImportOrder = importOrder;
-//            nImportOrder.setId(oImportOrder.getId());
-//            return importOrderDAO.save(nImportOrder);
-//        }
-        for (ImportOrderProduct value : importOrder.getImportOrderProducts()) {
+        List<ImportOrderProduct> importOrderProducts = importOrder.getImportOrderProducts();
+        for (ImportOrderProduct value : importOrderProducts) {
             value.setImportOrder(importOrder);
         }
+//        if (importOrder.getId() != null) {
+//            ImportOrder importOrder1 = importOrderDAO.getById(importOrder.getId());
+//            List<ImportOrderProduct> removedImportOrderProducts = new ArrayList<>(importOrder1.getImportOrderProducts());
+//            removedImportOrderProducts.removeAll(importOrderProducts);
+//            importOrderProductDAO.removeAllByIdIn(removedImportOrderProducts);
+//        }
         return importOrderDAO.save(importOrder);
+    }
+
+    @DeleteMapping(value = "/order")
+    public void deleteImportOrdersById(@RequestBody Integer[] arr) {
+        importOrderDAO.deleteAllById(arr);
     }
 }

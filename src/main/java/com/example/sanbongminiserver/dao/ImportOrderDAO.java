@@ -36,4 +36,8 @@ public class ImportOrderDAO {
     public ImportOrder save(ImportOrder importOrder) {return importOrderRepository.save(importOrder);}
 
     public List<ImportOrder> findByCodeContaining(String key) {return importOrderRepository.findByCodeContaining(key);}
+
+    public void deleteAllById(Integer[] ids) {
+            importOrderRepository.deleteAllById(List.of(ids));
+    }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 interface ImportOrderProductRepository extends JpaRepository<ImportOrderProduct, Integer> {
     List<ImportOrderProduct> findAllByImportOrderId(Integer id);
+    void removeAllByIdIn(List<Integer> ids);
 }
 
 @Service
@@ -24,5 +25,7 @@ public class ImportOrderProductDAO {
     public ImportOrderProduct save(ImportOrderProduct entity) {return importOrderProductRepository.save(entity);}
 
     public List<ImportOrderProduct> saveAll(List<ImportOrderProduct> entities) {return importOrderProductRepository.saveAll(entities);}
+
+    public void removeAllByIdIn (List<Integer> ids) { importOrderProductRepository.removeAllByIdIn(ids);}
 
 }

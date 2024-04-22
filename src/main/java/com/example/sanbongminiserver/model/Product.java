@@ -38,6 +38,7 @@ public class Product {
     @NotNull
     private Integer price;
 
+    @Column(length = 500)
     private String description;
 
     private String image;
