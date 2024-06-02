@@ -27,14 +27,13 @@ public class ImportOrder extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(unique = true)
     @NotBlank
     @NotEmpty
     @NotNull
     private String code;
 
-    @NotNull
-    private Integer payment;
-
+    private String note;
 
     @ManyToOne
     @NotNull

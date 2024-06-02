@@ -32,6 +32,7 @@ public class Supplier {
     @NotBlank
     @NotEmpty
     @NotNull
+    @Column(unique = true)
     private String taxCode;
 
     @NotEmpty
@@ -43,7 +44,12 @@ public class Supplier {
 
     @Email
     @NotNull
+    @Column(unique = true)
     private String email;
 
     private String note;
+
+
+    @Column(name="deleted", columnDefinition="BOOLEAN DEFAULT false")
+    private Boolean deleted = false;
 }
